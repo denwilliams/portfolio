@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a single-page React application that serves as an interactive portfolio for Alex Chen. The app features a chat interface where users can ask questions about Alex's background, with simulated AI responses providing information about skills, experience, and projects.
+This is a single-page React application that serves as an interactive portfolio for Dennis Williams. The app features a chat interface where users can ask questions about Dennis' background, with simulated AI responses providing information about skills, experience, and projects.
 
 ## Tech Stack
 

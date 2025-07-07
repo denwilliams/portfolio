@@ -4,8 +4,10 @@ const Header = () => {
       <div className="profile-pic">
         <div className="siri-orb"></div>
       </div>
-      <h1 className="name">Alex Chen</h1>
-      <p className="title">Senior Full-Stack Developer & AI Enthusiast</p>
+      <div className="header-text">
+        <h1 className="name">Dennis Williams</h1>
+        <p className="title">CTO / Tech Leader / Software Engineer</p>
+      </div>
     </header>
   )
 }
