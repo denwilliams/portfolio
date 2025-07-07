@@ -6,8 +6,8 @@
 
 body {
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-  color: white;
+  background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #2a2f3e 100%);
+  color: #e8eaed;
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
@@ -28,7 +28,7 @@ body {
   position: absolute;
   width: 2px;
   height: 2px;
-  background: rgba(64, 224, 255, 0.6);
+  background: rgba(96, 165, 250, 0.4);
   border-radius: 50%;
   animation: float 6s infinite linear;
 }
@@ -47,7 +47,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(64, 224, 255, 0.03) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.02) 0%, transparent 70%);
   animation: pulse 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 1;
@@ -92,14 +92,14 @@ body {
   height: 100px;
   border-radius: 50%;
   position: relative;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%),
-              radial-gradient(circle at 70% 70%, rgba(64, 224, 255, 0.6), transparent 50%),
-              linear-gradient(45deg, #40e0ff, #8a2be2, #ff1493, #40e0ff);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), transparent 50%),
+              radial-gradient(circle at 70% 70%, rgba(96, 165, 250, 0.4), transparent 50%),
+              linear-gradient(45deg, #3b82f6, #6366f1, #8b5cf6, #3b82f6);
   background-size: 200% 200%;
-  animation: siriPulse 3s ease-in-out infinite, siriRotate 8s linear infinite;
-  box-shadow: 0 0 30px rgba(64, 224, 255, 0.5),
-              0 0 60px rgba(138, 43, 226, 0.3),
-              inset 0 0 30px rgba(255, 255, 255, 0.1);
+  animation: siriPulse 5s ease-in-out infinite, siriRotate 12s linear infinite;
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3),
+              0 0 60px rgba(99, 102, 241, 0.2),
+              inset 0 0 30px rgba(255, 255, 255, 0.08);
 }
 
 .siri-orb::before {
@@ -110,7 +110,7 @@ body {
   right: -10px;
   bottom: -10px;
   border-radius: 50%;
-  background: linear-gradient(45deg, transparent, rgba(64, 224, 255, 0.2), transparent, rgba(255, 20, 147, 0.2));
+  background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.15), transparent, rgba(139, 92, 246, 0.15));
   animation: siriOuter 4s ease-in-out infinite reverse;
   z-index: -1;
 }
@@ -130,16 +130,16 @@ body {
 
 @keyframes siriPulse {
   0%, 100% { 
-    transform: scale(1);
-    box-shadow: 0 0 30px rgba(64, 224, 255, 0.5),
-               0 0 60px rgba(138, 43, 226, 0.3),
-               inset 0 0 30px rgba(255, 255, 255, 0.1);
+    transform: scale(0.9);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3),
+               0 0 60px rgba(99, 102, 241, 0.2),
+               inset 0 0 30px rgba(255, 255, 255, 0.08);
   }
   50% { 
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(64, 224, 255, 0.8),
-               0 0 80px rgba(138, 43, 226, 0.5),
-               inset 0 0 40px rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5),
+               0 0 80px rgba(99, 102, 241, 0.3),
+               inset 0 0 40px rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -174,7 +174,7 @@ body {
 .name {
   font-size: 3rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #40e0ff, #8a2be2, #ff1493);
+  background: linear-gradient(45deg, #3b82f6, #6366f1, #8b5cf6);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -185,7 +185,7 @@ body {
 
 .title {
   font-size: 1.3rem;
-  color: #a0a0ff;
+  color: #9ca3af;
   opacity: 0.9;
 }
 
@@ -197,10 +197,10 @@ body {
 /* Chat interface */
 .chat-container {
   flex: 1;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 20px;
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   min-height: 600px;
@@ -215,7 +215,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
   animation: shimmer 3s infinite;
 }
 
@@ -226,7 +226,7 @@ body {
 
 .chat-header {
   padding: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   gap: 15px;
@@ -235,7 +235,7 @@ body {
 .ai-indicator {
   width: 12px;
   height: 12px;
-  background: #00ff88;
+  background: #10b981;
   border-radius: 50%;
   animation: blink 1.5s infinite;
 }
@@ -283,12 +283,12 @@ body {
 }
 
 .ai-avatar {
-  background: linear-gradient(45deg, #40e0ff, #8a2be2);
+  background: linear-gradient(45deg, #3b82f6, #6366f1);
   animation: rotate 4s linear infinite;
 }
 
 .user-avatar {
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  background: linear-gradient(45deg, #64748b, #475569);
 }
 
 @keyframes rotate {
@@ -298,21 +298,21 @@ body {
 
 .message-content {
   flex: 1;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
   padding: 15px 20px;
   border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   line-height: 1.6;
 }
 
 .suggested-responses {
   padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .suggestions-title {
   margin-bottom: 15px;
-  color: #a0a0ff;
+  color: #9ca3af;
   font-weight: 600;
 }
 
@@ -324,10 +324,10 @@ body {
 
 .suggestion-btn {
   padding: 12px 20px;
-  background: linear-gradient(45deg, rgba(64, 224, 255, 0.2), rgba(138, 43, 226, 0.2));
-  border: 1px solid rgba(64, 224, 255, 0.3);
+  background: linear-gradient(45deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15));
+  border: 1px solid rgba(59, 130, 246, 0.2);
   border-radius: 25px;
-  color: white;
+  color: #e8eaed;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
@@ -348,8 +348,8 @@ body {
 
 .suggestion-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(64, 224, 255, 0.3);
-  border-color: rgba(64, 224, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.4);
 }
 
 .suggestion-btn:hover::before {
@@ -358,7 +358,7 @@ body {
 
 .chat-input {
   padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   gap: 15px;
   align-items: center;
@@ -366,11 +366,11 @@ body {
 
 .input-field {
   flex: 1;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 25px;
   padding: 15px 20px;
-  color: white;
+  color: #e8eaed;
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
@@ -381,15 +381,15 @@ body {
 }
 
 .input-field:focus {
-  border-color: #40e0ff;
-  box-shadow: 0 0 20px rgba(64, 224, 255, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
 }
 
 .send-btn {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #40e0ff, #8a2be2);
+  background: linear-gradient(45deg, #3b82f6, #6366f1);
   border: none;
   color: white;
   cursor: pointer;
@@ -402,7 +402,7 @@ body {
 
 .send-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 10px 30px rgba(64, 224, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
 }
 
 /* Responsive design */
