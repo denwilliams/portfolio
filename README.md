@@ -1,0 +1,1 @@
+Portfolio as a single page "resume" that acts as an AI chat interface for my accomplishments. Users will be able to ask further more detailed questions. When launched it will kick the chat off by giving a bite sized blurb to get the conversation rolling and providing a few suggested responses.
