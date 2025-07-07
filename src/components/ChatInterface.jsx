@@ -74,7 +74,23 @@ What would you like to know more about? Feel free to ask anything!`
   }
 
   const handleSuggestionClick = (suggestion) => {
-    setInputValue(suggestion)
+    const userMessage = {
+      id: messages.length + 1,
+      sender: 'user',
+      content: suggestion
+    }
+
+    setMessages(prev => [...prev, userMessage])
+
+    // Simulate AI response
+    setTimeout(() => {
+      const aiResponse = {
+        id: messages.length + 2,
+        sender: 'ai',
+        content: responses[Math.floor(Math.random() * responses.length)]
+      }
+      setMessages(prev => [...prev, aiResponse])
+    }, 1000)
   }
 
   return (
