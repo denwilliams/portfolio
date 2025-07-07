@@ -94,9 +94,9 @@ body {
   position: relative;
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), transparent 50%),
               radial-gradient(circle at 70% 70%, rgba(96, 165, 250, 0.4), transparent 50%),
-              linear-gradient(45deg, #3b82f6, #6366f1, #8b5cf6, #3b82f6);
-  background-size: 200% 200%;
-  animation: siriPulse 5s ease-in-out infinite, siriRotate 12s linear infinite;
+              linear-gradient(45deg, #3b82f6, #6366f1, #8b5cf6, #10b981, #ef4444, #f97316, #3b82f6);
+  background-size: 400% 400%;
+  animation: siriPulse 5s ease-in-out infinite, siriColorCycle 12s linear infinite;
   box-shadow: 0 0 30px rgba(59, 130, 246, 0.3),
               0 0 60px rgba(99, 102, 241, 0.2),
               inset 0 0 30px rgba(255, 255, 255, 0.08);
@@ -110,8 +110,8 @@ body {
   right: -10px;
   bottom: -10px;
   border-radius: 50%;
-  background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.15), transparent, rgba(139, 92, 246, 0.15));
-  animation: siriOuter 4s ease-in-out infinite reverse;
+  background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.15), transparent, rgba(139, 92, 246, 0.15), transparent, rgba(16, 185, 129, 0.15), transparent, rgba(239, 68, 68, 0.15));
+  animation: siriOuter 8s ease-in-out infinite reverse;
   z-index: -1;
 }
 
@@ -135,17 +135,33 @@ body {
                0 0 60px rgba(99, 102, 241, 0.2),
                inset 0 0 30px rgba(255, 255, 255, 0.08);
   }
+  25% {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px rgba(16, 185, 129, 0.4),
+               0 0 70px rgba(59, 130, 246, 0.3),
+               inset 0 0 35px rgba(255, 255, 255, 0.1);
+  }
   50% { 
     transform: scale(1.1);
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5),
-               0 0 80px rgba(99, 102, 241, 0.3),
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.4),
+               0 0 80px rgba(245, 101, 101, 0.3),
                inset 0 0 40px rgba(255, 255, 255, 0.12);
+  }
+  75% {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px rgba(249, 115, 22, 0.4),
+               0 0 70px rgba(139, 92, 246, 0.3),
+               inset 0 0 35px rgba(255, 255, 255, 0.1);
   }
 }
 
-@keyframes siriRotate {
+@keyframes siriColorCycle {
   0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  16.67% { background-position: 20% 30%; }
+  33.33% { background-position: 40% 70%; }
+  50% { background-position: 60% 20%; }
+  66.67% { background-position: 80% 80%; }
+  83.33% { background-position: 100% 40%; }
   100% { background-position: 0% 50%; }
 }
 
@@ -154,9 +170,17 @@ body {
     transform: scale(1) rotate(0deg);
     opacity: 0.5;
   }
+  25% {
+    transform: scale(1.05) rotate(90deg);
+    opacity: 0.7;
+  }
   50% { 
     transform: scale(1.1) rotate(180deg);
     opacity: 0.8;
+  }
+  75% {
+    transform: scale(1.05) rotate(270deg);
+    opacity: 0.7;
   }
 }
 
