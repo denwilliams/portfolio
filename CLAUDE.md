@@ -4,39 +4,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an interactive portfolio website that functions as an AI-powered resume. Users can ask questions about Alex Chen's background through a chat interface that provides simulated AI responses.
+This is a single-page React application that serves as an interactive portfolio for Alex Chen. The app features a chat interface where users can ask questions about Alex's background, with simulated AI responses providing information about skills, experience, and projects.
+
+## Tech Stack
+
+- **React 19**: Component-based UI library
+- **Vite**: Fast build tool and development server
+- **Vanilla CSS**: No CSS frameworks, using custom animations and gradients
+- **ESModules**: Modern JavaScript module system
 
 ## Architecture
 
-- **Single-file application**: Complete website contained in `index.html` with embedded CSS and JavaScript
-- **No build process**: Static HTML file that runs directly in browsers
-- **Vanilla JavaScript**: No external dependencies or frameworks
-- **Client-side only**: All functionality runs in the browser
+### Component Structure
+- `App.jsx`: Main application component with floating animation logic
+- `Header.jsx`: Profile section with animated Siri-like orb
+- `ChatInterface.jsx`: Chat system with message handling and suggestions
+- `BackgroundEffects.jsx`: Animated background particles and overlays
 
-## Key Components
+### Key Features
+- **Siri-like Animation**: Animated orb profile picture with layered gradients
+- **Interactive Chat**: Message system with predefined AI responses
+- **Suggested Questions**: Clickable prompts that populate the input field
+- **Background Effects**: Floating particles and gradient overlays
+- **Responsive Design**: Mobile-friendly layout
 
-### Chat System
-- Message rendering with user/AI avatars
-- Predefined response system that randomly selects from response arrays
-- Suggested question buttons that populate the input field
-- Auto-scrolling message container
+## Development Commands
 
-### Visual Effects
-- CSS particle animation system with floating elements
-- Glassmorphism design using backdrop-filter
-- Gradient animations on text and backgrounds
-- Responsive hover effects and transitions
+```bash
+# Install dependencies
+npm install
 
-## Development
+# Start development server
+npm run dev
 
-Since this is a static HTML file:
-- Open `index.html` directly in a browser for development
-- Use any static file server for local hosting: `python -m http.server 8000`
-- No build, lint, or test commands - changes are immediately visible on refresh
+# Build for production
+npm run build
 
-## Customization Points
+# Preview production build
+npm run preview
+```
 
-- **Profile data**: Update name, title, and bio in the initial AI message (line 401-408)
-- **AI responses**: Modify the `responses` array in `sendMessage()` function (line 478-484)
-- **Suggested questions**: Update suggestion buttons in HTML (line 416-421)
-- **Styling**: Adjust CSS custom properties and animations throughout the embedded styles
+## Component Customization
+
+### Profile Information
+Update the initial AI message in `ChatInterface.jsx` to modify Alex's bio and highlights.
+
+### AI Responses
+Modify the `responses` array in `ChatInterface.jsx` to change the AI's answer pool.
+
+### Suggested Questions
+Update the `suggestions` array in `ChatInterface.jsx` to change the prompt buttons.
+
+### Styling
+All styles are in `src/index.css` - modify CSS custom properties and animations for visual changes.
