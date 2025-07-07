@@ -88,22 +88,94 @@
             height: 120px;
             border-radius: 50%;
             margin: 0 auto 20px;
-            background: linear-gradient(45deg, #40e0ff, #8a2be2, #ff1493);
-            padding: 4px;
-            animation: glow 2s ease-in-out infinite alternate;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
+        .siri-orb {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            object-fit: cover;
-            background: #2a2a4a;
+            position: relative;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(64, 224, 255, 0.6), transparent 50%),
+                        linear-gradient(45deg, #40e0ff, #8a2be2, #ff1493, #40e0ff);
+            background-size: 200% 200%;
+            animation: siriPulse 3s ease-in-out infinite, siriRotate 8s linear infinite;
+            box-shadow: 0 0 30px rgba(64, 224, 255, 0.5),
+                        0 0 60px rgba(138, 43, 226, 0.3),
+                        inset 0 0 30px rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes glow {
-            from { box-shadow: 0 0 20px rgba(64, 224, 255, 0.5); }
-            to { box-shadow: 0 0 40px rgba(64, 224, 255, 0.8), 0 0 60px rgba(138, 43, 226, 0.3); }
+        .siri-orb::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(64, 224, 255, 0.2), transparent, rgba(255, 20, 147, 0.2));
+            animation: siriOuter 4s ease-in-out infinite reverse;
+            z-index: -1;
+        }
+
+        .siri-orb::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 40%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: siriCore 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes siriPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(64, 224, 255, 0.5),
+                           0 0 60px rgba(138, 43, 226, 0.3),
+                           inset 0 0 30px rgba(255, 255, 255, 0.1);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(64, 224, 255, 0.8),
+                           0 0 80px rgba(138, 43, 226, 0.5),
+                           inset 0 0 40px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        @keyframes siriRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes siriOuter {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% { 
+                transform: scale(1.1) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes siriCore {
+            0% { 
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
         }
 
         .name {
@@ -379,7 +451,7 @@
         <!-- Header -->
         <header class="header">
             <div class="profile-pic">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iNjAiIGZpbGw9IiMyYTJhNGEiLz4KPGV4dCB4PSI2MCIgeT0iNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0OCIgZmlsbD0iIzQwZTBmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QUM8L3RleHQ+Cjwvc3ZnPgo=" alt="Profile">
+                <div class="siri-orb"></div>
             </div>
             <h1 class="name">Alex Chen</h1>
             <p class="title">Senior Full-Stack Developer & AI Enthusiast</p>
