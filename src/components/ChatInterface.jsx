@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 // Generate short unique ID (8 characters)
 const generateShortId = () => {
@@ -186,12 +187,7 @@ Dennis is a seasoned CTO and tech leader with extensive experience building scal
                   <span>.</span><span>.</span><span>.</span>
                 </span>
               ) : (
-                message.content.split('\n').map((line, index) => (
-                  <span key={index}>
-                    {line}
-                    {index < message.content.split('\n').length - 1 && <br />}
-                  </span>
-                ))
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               )}
             </div>
           </div>
