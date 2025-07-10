@@ -371,6 +371,11 @@ body {
   line-height: 1.6;
 }
 
+.message-content ul {
+  padding-left: 20px;
+  margin: 5px 0;
+}
+
 .typing-indicator {
   display: inline-block;
   font-size: 1.5rem;
