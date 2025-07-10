@@ -326,6 +326,27 @@ body {
   color: white;
 }
 
+@media (max-width: 768px) {
+  .message {
+    gap: 10px;
+  }
+  
+  .message-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+  
+  .chat-messages {
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .message-content {
+    padding: 12px 15px;
+  }
+}
+
 .ai-avatar {
   background: linear-gradient(45deg, #3b82f6, #6366f1);
   animation: rotate 4s linear infinite;
