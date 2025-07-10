@@ -506,7 +506,20 @@ body {
 /* Responsive design */
 @media (max-width: 768px) {
   .name { font-size: 2rem; }
-  .suggestion-buttons { flex-direction: column; }
+  .suggestion-buttons { 
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .suggestion-btn {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    flex: 1;
+    min-width: calc(50% - 4px);
+  }
+  .chat-messages {
+    font-size: 0.9rem;
+  }
   .chat-input { 
     padding: 15px;
     gap: 12px;
