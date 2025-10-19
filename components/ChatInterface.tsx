@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Send, Sparkles, Loader2 } from 'lucide-react'
+import { ArrowUp, Sparkles, Loader2, User } from 'lucide-react'
 
 // Generate short unique ID (8 characters)
 const generateShortId = () => {
@@ -34,11 +34,11 @@ const ChatInterface = () => {
     {
       id: 1,
       sender: 'ai',
-      content: `👋 Hey there! I'm Dennis's portfolio assistant. I'm here to tell you all about Dennis's incredible journey in tech!
+      content: `👋 Hey there! I'm Dennis Williams - thanks for stopping by!
 
-Dennis is a seasoned CTO and tech leader with extensive experience building scalable systems and leading high-performing teams. Currently working as a CTO and software engineer, specializing in full-stack development, cloud architecture, and technical leadership.
+I'm a seasoned CTO and tech leader with extensive experience building scalable systems and leading high-performing teams. I specialize in full-stack development, cloud architecture, and technical leadership.
 
-🚀 What would you like to know more about? Feel free to ask anything!`
+🚀 What would you like to know about me? Feel free to ask anything!`
     }
   ])
   const [inputValue, setInputValue] = useState('')
@@ -47,19 +47,19 @@ Dennis is a seasoned CTO and tech leader with extensive experience building scal
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const suggestions = [
-    "Tell me about Dennis's technical skills",
-    "What projects has Dennis worked on?",
-    "Dennis's leadership experience",
-    "Education and certifications",
-    "How to get in touch with Dennis"
+    "What are your technical skills?",
+    "What projects have you worked on?",
+    "Tell me about your leadership experience",
+    "What's your education background?",
+    "How can I get in touch with you?"
   ]
 
   const placeholders = [
-    "Ask about Dennis's technical expertise...",
-    "What projects has Dennis built?",
-    "Tell me about Dennis's leadership style...",
-    "What are Dennis's core skills?",
-    "How can I contact Dennis?"
+    "What's your technical expertise?",
+    "What projects have you built?",
+    "Tell me about your leadership style...",
+    "What are your core skills?",
+    "How can I contact you?"
   ]
 
   const scrollToBottom = () => {
@@ -179,7 +179,7 @@ Dennis is a seasoned CTO and tech leader with extensive experience building scal
       <div className="flex items-center gap-3 p-4 border-b">
         <Sparkles className="w-5 h-5" />
         <div>
-          <h2 className="text-lg font-semibold">Ask me about Dennis Williams</h2>
+          <h2 className="text-lg font-semibold">Hi, I'm Dennis Williams</h2>
           <p className="text-sm text-muted-foreground">CTO, Tech Leader & Software Engineer</p>
         </div>
       </div>
@@ -193,7 +193,7 @@ Dennis is a seasoned CTO and tech leader with extensive experience building scal
           >
             <Avatar className="w-8 h-8">
               <AvatarFallback>
-                {message.sender === 'ai' ? <Sparkles className="w-4 h-4" /> : 'U'}
+                {message.sender === 'ai' ? <Sparkles className="w-4 h-4" /> : <User className="w-4 h-4" />}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col gap-2 max-w-[80%]">
@@ -260,7 +260,7 @@ Dennis is a seasoned CTO and tech leader with extensive experience building scal
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
-              <Send className="w-4 h-4" />
+              <ArrowUp className="w-4 h-4" />
             )}
           </Button>
         </div>
