@@ -89,4 +89,4 @@ Serial hobbiest. Collect japanese knives, headphones, build RC drones and cars, 
 
 Provide examples from my experience at LOKE or discuss challenges you’re currently facing with managing your teams.
 Time ranges for work. List of achievements at LOKE. Talk about seeing bad decisions through and learning from them.
-More about manage my post.`;
+More about manage my post.`

@@ -1,5 +1,5 @@
-import { NextRequest } from 'next/server'
 import { Agent, run } from '@openai/agents'
+import type { NextRequest } from 'next/server'
 import { instructions } from './instructions'
 
 // Configure the agent with Dennis's portfolio context
@@ -10,7 +10,7 @@ const portfolioAgent = new Agent({
 })
 
 // In-memory session store (in production, use a database)
-const sessions = new Map<string, any[]>()
+const sessions = new Map<string, unknown[]>()
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     if (!chatInput || !sessionId) {
       return new Response(
         JSON.stringify({ error: 'Missing chatInput or sessionId' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
       )
     }
 
@@ -30,13 +30,15 @@ export async function POST(request: NextRequest) {
     // Build the prompt with history
     let prompt = chatInput
     if (history.length > 0) {
-      prompt = history.map((msg: any) =>
-        `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`
-      ).join('\n\n') + `\n\nUser: ${chatInput}`
+      prompt = `${(history as Array<{ role: string; content: string }>)
+        .map(
+          (msg) =>
+            `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`,
+        )
+        .join('\n\n')}\n\nUser: ${chatInput}`
     }
 
-    // Set API key for OpenAI
-    process.env.OPENAI_API_KEY = process.env.OPENAI_API_KEY!
+    // API key is set via environment variable
 
     // Create a text stream
     const encoder = new TextEncoder()
@@ -64,14 +66,15 @@ export async function POST(request: NextRequest) {
           const updatedHistory = [
             ...history,
             { role: 'user', content: chatInput },
-            { role: 'assistant', content: fullResponse }
+            { role: 'assistant', content: fullResponse },
           ]
           sessions.set(sessionId, updatedHistory)
 
           controller.close()
         } catch (error) {
           console.error('Streaming error:', error)
-          const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+          const errorMessage =
+            error instanceof Error ? error.message : 'Unknown error occurred'
           controller.enqueue(encoder.encode(`Error: ${errorMessage}`))
           controller.close()
         }
@@ -88,9 +91,9 @@ export async function POST(request: NextRequest) {
     console.error('API error:', error)
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Internal server error'
+        error: error instanceof Error ? error.message : 'Internal server error',
       }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 500, headers: { 'Content-Type': 'application/json' } },
     )
   }
 }
