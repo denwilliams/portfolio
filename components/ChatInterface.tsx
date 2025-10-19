@@ -1,177 +1,178 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef } from 'react'
-import ReactMarkdown from 'react-markdown'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { ArrowUp, Sparkles, Loader2, User } from 'lucide-react'
+import { useState, useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ArrowUp, Sparkles, Loader2, User } from "lucide-react";
 
 // Generate short unique ID (8 characters)
 const generateShortId = () => {
-  return Math.random().toString(36).substring(2, 10)
-}
+  return Math.random().toString(36).substring(2, 10);
+};
 
 interface Message {
-  id: number
-  sender: 'ai' | 'user'
-  content: string
-  isTyping?: boolean
+  id: number;
+  sender: "ai" | "user";
+  content: string;
+  isTyping?: boolean;
 }
 
 const ChatInterface = () => {
   // Initialize session ID from localStorage or generate new one
   const [sessionId] = useState(() => {
-    if (typeof window === 'undefined') return ''
-    const stored = localStorage.getItem('chatSessionId')
-    if (stored) return stored
-    const newId = generateShortId()
-    localStorage.setItem('chatSessionId', newId)
-    return newId
-  })
+    if (typeof window === "undefined") return "";
+    const stored = localStorage.getItem("chatSessionId");
+    if (stored) return stored;
+    const newId = generateShortId();
+    localStorage.setItem("chatSessionId", newId);
+    return newId;
+  });
 
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      sender: 'ai',
+      sender: "ai",
       content: `👋 Hey there! I'm Dennis Williams - thanks for stopping by!
 
 I'm a seasoned CTO and tech leader with extensive experience building scalable systems and leading high-performing teams. I specialize in full-stack development, cloud architecture, and technical leadership.
 
-🚀 What would you like to know about me? Feel free to ask anything!`
-    }
-  ])
-  const [inputValue, setInputValue] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [placeholderIndex, setPlaceholderIndex] = useState(0)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+🚀 What would you like to know about me? Feel free to ask anything!`,
+    },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const suggestions = [
     "What are your technical skills?",
     "What projects have you worked on?",
     "Tell me about your leadership experience",
     "What's your education background?",
-    "How can I get in touch with you?"
-  ]
+    "How can I get in touch with you?",
+  ];
 
   const placeholders = [
     "What's your technical expertise?",
     "What projects have you built?",
     "Tell me about your leadership style...",
     "What are your core skills?",
-    "How can I contact you?"
-  ]
+    "How can I contact you?",
+  ];
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    scrollToBottom();
+  }, [messages]);
 
   // Rotate placeholder text every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setPlaceholderIndex((prev) => (prev + 1) % placeholders.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [placeholders.length])
+      setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [placeholders.length]);
 
   const handleSendMessage = async (messageText?: string) => {
-    const textToSend = messageText || inputValue
-    if (!textToSend.trim() || isLoading) return
+    const textToSend = messageText || inputValue;
+    if (!textToSend.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: messages.length + 1,
-      sender: 'user',
-      content: textToSend
-    }
+      sender: "user",
+      content: textToSend,
+    };
 
-    setMessages(prev => [...prev, userMessage])
-    setInputValue('')
-    setIsLoading(true)
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
+    setIsLoading(true);
 
     // Add streaming message placeholder with typing state
-    const aiMessageId = messages.length + 2
+    const aiMessageId = messages.length + 2;
     const streamingMessage: Message = {
       id: aiMessageId,
-      sender: 'ai',
-      content: '',
-      isTyping: true
-    }
-    setMessages(prev => [...prev, streamingMessage])
+      sender: "ai",
+      content: "",
+      isTyping: true,
+    };
+    setMessages((prev) => [...prev, streamingMessage]);
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
+      const response = await fetch("/api/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           chatInput: textToSend,
-          sessionId: sessionId
-        })
-      })
+          sessionId: sessionId,
+        }),
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to get response')
+        throw new Error("Failed to get response");
       }
 
       // Read the stream
-      const reader = response.body?.getReader()
-      const decoder = new TextDecoder()
-      let accumulatedText = ''
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let accumulatedText = "";
 
       if (reader) {
         while (true) {
-          const { done, value } = await reader.read()
+          const { done, value } = await reader.read();
 
-          if (done) break
+          if (done) break;
 
-          const chunk = decoder.decode(value, { stream: true })
-          accumulatedText += chunk
+          const chunk = decoder.decode(value, { stream: true });
+          accumulatedText += chunk;
 
           // Update the message with accumulated text
           // Keep isTyping true until we have actual content
-          const hasContent = accumulatedText.trim().length > 0
-          setMessages(prev =>
-            prev.map(msg =>
+          const hasContent = accumulatedText.trim().length > 0;
+          setMessages((prev) =>
+            prev.map((msg) =>
               msg.id === aiMessageId
                 ? { ...msg, content: accumulatedText, isTyping: !hasContent }
                 : msg
             )
-          )
+          );
         }
       }
 
       // If we didn't get any text, show error
       if (!accumulatedText) {
-        throw new Error('No response received')
+        throw new Error("No response received");
       }
     } catch (error) {
-      console.error('Error sending message:', error)
+      console.error("Error sending message:", error);
       const errorResponse: Message = {
         id: aiMessageId,
-        sender: 'ai',
-        content: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment."
-      }
-      setMessages(prev => prev.slice(0, -1).concat(errorResponse))
+        sender: "ai",
+        content:
+          "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.",
+      };
+      setMessages((prev) => prev.slice(0, -1).concat(errorResponse));
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSendMessage()
+    if (e.key === "Enter") {
+      handleSendMessage();
     }
-  }
+  };
 
   const handleSuggestionClick = (suggestion: string) => {
-    if (isLoading) return
-    handleSendMessage(suggestion)
-  }
+    if (isLoading) return;
+    handleSendMessage(suggestion);
+  };
 
   return (
     <div className="flex flex-col h-screen max-w-4xl mx-auto">
@@ -180,7 +181,9 @@ I'm a seasoned CTO and tech leader with extensive experience building scalable s
         <Sparkles className="w-5 h-5" />
         <div>
           <h2 className="text-lg font-semibold">Hi, I'm Dennis Williams</h2>
-          <p className="text-sm text-muted-foreground">CTO, Tech Leader & Software Engineer</p>
+          <p className="text-sm text-muted-foreground">
+            CTO, Tech Leader & Software Engineer
+          </p>
         </div>
       </div>
 
@@ -189,25 +192,33 @@ I'm a seasoned CTO and tech leader with extensive experience building scalable s
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex gap-4 ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+            className={`flex gap-4 ${
+              message.sender === "user" ? "flex-row-reverse" : "flex-row"
+            }`}
           >
             <Avatar className="w-8 h-8">
               <AvatarFallback>
-                {message.sender === 'ai' ? <Sparkles className="w-4 h-4" /> : <User className="w-4 h-4" />}
+                {message.sender === "ai" ? (
+                  <Sparkles className="w-4 h-4" />
+                ) : (
+                  <User className="w-4 h-4" />
+                )}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col gap-2 max-w-[80%]">
               <div
                 className={`rounded-lg p-3 ${
-                  message.sender === 'ai'
-                    ? 'bg-muted'
-                    : 'bg-primary text-primary-foreground'
+                  message.sender === "ai"
+                    ? "bg-muted"
+                    : "bg-primary text-primary-foreground"
                 }`}
               >
                 {message.isTyping ? (
                   <div className="flex items-center gap-2 py-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span className="text-sm text-muted-foreground">Thinking...</span>
+                    <span className="text-sm text-muted-foreground">
+                      Thinking...
+                    </span>
                   </div>
                 ) : (
                   <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -266,7 +277,7 @@ I'm a seasoned CTO and tech leader with extensive experience building scalable s
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChatInterface
+export default ChatInterface;
